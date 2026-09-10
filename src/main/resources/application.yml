@@ -3,9 +3,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/healthcheck
-    username: hc_user
-    password: hc_pass123
+    url: jdbc:mysql://mysql:3306/healthcheck?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    username: healthcheck
+    password: healthcheck123
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -13,19 +13,25 @@ spring:
     show-sql: false
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.MySQLDialect
+
   mail:
-    host: smtp.gmail.com
-    port: 587
-    username: ton-email@gmail.com
-    password: ton-app-password
+    host: smtp.localhost
+    port: 25
+    username: ""
+    password: ""
     properties:
       mail:
         smtp:
-          auth: true
+          auth: false
           starttls:
-            enable: true
+            enable: false
 
-jwt:
-  secret: hpe-healthcheck-secret-key-2024
-  expiration: 86400000
+app:
+  jwt:
+    secret: healthcheck-hpe-secret-key-2024-very-long-secure
+    expiration: 86400000
+
+logging:
+  level:
+    com.healthcheck: INFO
