@@ -35,3 +35,7 @@ app:
 logging:
   level:
     com.healthcheck: INFO
+
+redfish:
+  username: admin
+  password: admin
