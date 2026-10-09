@@ -17,7 +17,12 @@ public class Server {
     private String model;
     private String serialNumber;
     private String location;
+    private String site;
+    private String bay;
+    private String environment; // PRODUCTION, PREPROD, DEV, TEST
+    private String contactReferent;
     private String firmwareVersion;
+    private String baselineFirmware;
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -16,6 +16,14 @@ public class ServerService {
 
     public List<Server> getAll() { return serverRepository.findAll(); }
 
+    public List<Server> getWithFilters(String status, String environment, String site, String bay) {
+        return serverRepository.findWithFilters(status, environment, site, bay);
+    }
+
+    public List<Server> getNonCompliantFirmware() {
+        return serverRepository.findNonCompliantFirmware();
+    }
+
     public Server getById(Long id) {
         return serverRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Server not found: " + id));
@@ -23,7 +31,8 @@ public class ServerService {
 
     public Server create(Server server) {
         Server saved = serverRepository.save(server);
-        auditService.log("system", "CREATE_SERVER", "servers", "Added server: " + saved.getName() + " (" + saved.getIpAddress() + ")", "system");
+        auditService.log("system", "CREATE_SERVER", "servers",
+                "Added server: " + saved.getName() + " (" + saved.getIpAddress() + ")", "system");
         return saved;
     }
 

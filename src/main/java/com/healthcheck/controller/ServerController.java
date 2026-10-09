@@ -19,6 +19,20 @@ public class ServerController {
     @GetMapping
     public List<Server> getAll() { return serverService.getAll(); }
 
+    @GetMapping("/filter")
+    public List<Server> getWithFilters(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String environment,
+            @RequestParam(required = false) String site,
+            @RequestParam(required = false) String bay) {
+        return serverService.getWithFilters(status, environment, site, bay);
+    }
+
+    @GetMapping("/firmware/non-compliant")
+    public List<Server> getNonCompliantFirmware() {
+        return serverService.getNonCompliantFirmware();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Server> getById(@PathVariable Long id) {
         return ResponseEntity.ok(serverService.getById(id));

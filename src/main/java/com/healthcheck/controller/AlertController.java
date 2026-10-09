@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/alerts")
@@ -22,6 +23,24 @@ public class AlertController {
     @GetMapping("/status/{status}")
     public List<Alert> getByStatus(@PathVariable String status) {
         return alertService.getByStatus(status);
+    }
+
+    @GetMapping("/filter")
+    public List<Alert> getWithFilters(
+            @RequestParam(required = false) String status,
+            @RequestParam(required = false) String severity,
+            @RequestParam(required = false) String serverName) {
+        return alertService.getWithFilters(status, severity, serverName);
+    }
+
+    @GetMapping("/trends")
+    public ResponseEntity<List<Object[]>> getTrends() {
+        return ResponseEntity.ok(alertService.getTrends());
+    }
+
+    @GetMapping("/sla")
+    public ResponseEntity<Map<String, Object>> getSla() {
+        return ResponseEntity.ok(alertService.getSla());
     }
 
     @PutMapping("/{id}/acknowledge")
